@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
 
-from setuptools import setup, find_packages
+from setuptools import setup
 
 
 setup(
@@ -11,7 +11,7 @@ setup(
     author='Ranx',
     author_email='mod34@yandex.ru',
     url='https://github.com/r4nx/rupdater',
-    packages=find_packages(),
+    py_modules=['rupdater'],
     keywords=['update', 'updater'],
     python_requires='>=3.5',
     classifiers=[
