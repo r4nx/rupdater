@@ -6,7 +6,7 @@ from setuptools import setup
 
 setup(
     name='rupdater',
-    version='1.0.0a0',
+    version='1.1.0a0',
     description='Lightweight dependency free update software',
     author='Ranx',
     author_email='mod34@yandex.ru',
