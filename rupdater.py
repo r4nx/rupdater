@@ -136,7 +136,7 @@ class Updater:
 
         """
         if hash_algo not in hashlib.algorithms_guaranteed:
-            raise ValueError('could not found hashing algorithm: {}'.format(hash_algo))
+            raise ValueError('can not find hashing algorithm: {}'.format(hash_algo))
         hasher = getattr(hashlib, hash_algo)()
         [hasher.update(chunk) for chunk in iter(lambda: f.read(chunk_size), b'')]
         return hasher.hexdigest()
