@@ -1,5 +1,7 @@
 # rupdater
 
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/c1d9a929a0004ed28d7f447067dd2287)](https://app.codacy.com/app/justr4nx/rupdater?utm_source=github.com&utm_medium=referral&utm_content=r4nx/rupdater&utm_campaign=Badge_Grade_Settings)
+
 rupdater is a super lightweight and dependency-free updater, that provide
 remote version parsing, downloading and getting hash sum of an update.
 
