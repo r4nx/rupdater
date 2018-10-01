@@ -52,7 +52,8 @@ class Updater:
         """
         with urllib.request.urlopen(self.version_data_url, timeout=10) as req:
             version_data = bytearray()
-            [version_data.extend(chunk) for chunk in iter(lambda: req.read(1024 * 16), b'')]
+            for chunk in iter(lambda: req.read(1024 * 16), b''):
+                version_data.extend(chunk)
             url_pattern = r'https?://(?:www\.)?[-a-zA-Z0-9@:%._+~#=]{2,256}\.[a-z]{2,6}\b' \
                           r'(?:[-a-zA-Z0-9@:%_+.~#?&/=]*)'
             if self.use_json:
@@ -113,7 +114,8 @@ class Updater:
         try:
             if self.remote_file_url is not None:
                 with urllib.request.urlopen(self.remote_file_url) as req:
-                    [tmp_file.write(chunk) for chunk in iter(lambda: req.read(chunk_size), b'')]
+                    for chunk in iter(lambda: req.read(chunk_size), b''):
+                        tmp_file.write(chunk)
                     tmp_file.seek(0)
             yield tmp_file
         finally:
@@ -138,5 +140,6 @@ class Updater:
         if hash_algo not in hashlib.algorithms_guaranteed:
             raise ValueError('can not find hashing algorithm: {}'.format(hash_algo))
         hasher = getattr(hashlib, hash_algo)()
-        [hasher.update(chunk) for chunk in iter(lambda: f.read(chunk_size), b'')]
+        for chunk in iter(lambda: f.read(chunk_size), b''):
+            hasher.update(chunk)
         return hasher.hexdigest()

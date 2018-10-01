@@ -15,7 +15,7 @@ def readme():
 
 setup(
     name='rupdater',
-    version='1.1.1a1',
+    version='1.1.1a2',
     description='Lightweight dependency free update software',
     long_description=readme(),
     long_description_content_type='text/markdown',

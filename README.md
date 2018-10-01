@@ -41,7 +41,8 @@ This example will read the data from update_file and write it to the update.zip.
 More complicated example with chunk-by-chunk reading/writing:
 ```python
 with updater.download() as update_file, open('update.zip', 'w+b') as f:
-    [f.write(chunk) for chunk in iter(lambda: update_file.read(1024 * 16), b'')]
+    for chunk in iter(lambda: update_file.read(1024 * 16), b''):
+        f.write(chunk)
 ```
 
 rupdater also has hash static method, that takes 2 required arguments and 1 optional:
@@ -49,16 +50,16 @@ file-like object, hashing algorithm (as string) and chunk size, which is
 1024 * 16 by default. This is the example of usage:
 ```python
 with updater.download() as update_file:
-    hashes_match = Updater.hash_file(update_file, 'sha256') == updater.hash
+    hashes_match = Updater.hash_file(update_file, updater.hash_algo) == updater.hash
 ```
 
 Warning! If you want to reuse the update file, you have to `seek(0)`. Example:
 ```python
 with updater.download() as update_file, open('update.zip', 'w+b') as f:
-    hashes_match = Updater.hash_file(update_file, 'sha256') == updater.hash
-    if hashes_match:
-        update_file.seek(0)
-        [f.write(chunk) for chunk in iter(lambda: update_file.read(1024 * 16), b'')]
+    for chunk in iter(lambda: update_file.read(1024 * 16), b''):
+        f.write(chunk)
+    f.seek(0)
+    assert Updater.hash_file(f, updater.hash_algo) == updater.hash
 ```
 
 You can also parse version data again manually by calling `get_version_data()`.
@@ -71,4 +72,4 @@ you can just copy this file and use it like a single module.
 ## Exceptions handling
 rupdater does not catch any errors, you have to do it yourself as prefer.
 In addition, rupdater may raise ValueError when incorrect input data was given
-(version data file does not formatted properly, unknown hashing algorithm, etc).
+(version data file does not formatted properly, unknown hashing algorithm etc).
